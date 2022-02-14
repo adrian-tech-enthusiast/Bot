@@ -43,14 +43,11 @@ int bot_init() {
     add_task(dispatcher, "bot.sample.data", "Sample Data.", &do_sample_data);
     add_task(dispatcher, "bot.show.messages", "Show Messages.", &do_show_messages);
     add_task(dispatcher, "bot.exit", "Bot Exit.", &do_exit);
-    // Let the user decide what to do.
-    char *task_id = ask_user_task_to_dispatch(dispatcher);
-    // Dispatch the task user requested.
-    task_response response = dispatch_task(dispatcher, task_id);
-    // Show the task result.
-    show_task_response(response);
-    // Repeat the same operation until the user wants to halt the bot.
+    // Ask the user what to do until the user wants to halt the bot.
+    char *task_id;
+    task_response response;
     while (strcmp(task_id, "bot.exit") != 0) {
+        // Let the user decide what to do.
         task_id = ask_user_task_to_dispatch(dispatcher);
         // Dispatch the task user requested.
         response = dispatch_task(dispatcher, task_id);
